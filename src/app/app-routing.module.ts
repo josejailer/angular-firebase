@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: 'empleados', component: ListEmpleadosComponent },
   { path: 'crear-empleado', component: AddEditEmpleadosComponent },
   { path: 'editarEmpleado/:idEmpleado', component: AddEditEmpleadosComponent },
-  { path: 'detalleEmpleado/:idEmpleado', component: AddEditEmpleadosComponent },
+  { path: 'detalleEmpleado/:idEmpleadoDetalle', component: AddEditEmpleadosComponent },
  
 ];
 

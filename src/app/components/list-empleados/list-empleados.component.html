@@ -1,58 +1,73 @@
-<mat-form-field>
-    <mat-label>Empleado</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Buscar por cualquier campo" #input>
-</mat-form-field>
+<div class="container mt-5">
+    <div class="example-container">
+        <mat-form-field>
+            <mat-label>Empleado</mat-label>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Buscar por cualquier campo" #input>
+        </mat-form-field>
+        <a class="card" routerLink="/crear-empleado">
+            <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 34 34">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+            </svg>
+            <span>Crear empleado</span>
+        </a>
+    </div>
 
-<div class="mat-elevation-z8">
-    <table mat-table [dataSource]="dataSource" matSort>
- 
-        <!-- ID Column -->
-        <ng-container matColumnDef="nombreEmpleado" >
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre(Cargo) </th>
-            <td mat-cell *matCellDef="let row"> {{row.nombreEmpleado}} </td>
-        </ng-container>
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="dataSource" matSort>
 
-        <!-- Progress Column -->
-        <ng-container matColumnDef="edadEmpleadp">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Edad </th>
-            <td mat-cell *matCellDef="let row"> {{row.edadEmpleadp}}% </td>
-        </ng-container>
+            <!-- ID Column -->
+            <ng-container matColumnDef="nombreEmpleado">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+                <td mat-cell *matCellDef="let row"> {{row.nombreEmpleado}} ({{row.cargoEmpleado}}) </td>
+            </ng-container>
+            <ng-container style="display: none;" matColumnDef="cargoEmpleado">
+                <th style="display: none;" mat-header-cell *matHeaderCellDef mat-sort-header> Cargo </th>
+                <td style="display: none;" mat-cell *matCellDef="let row"> {{row.cargoEmpleado}} </td>
+            </ng-container>
+            <!-- Progress Column -->
+            <ng-container matColumnDef="edadEmpleado">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Edad </th>
+                <td mat-cell *matCellDef="let row"> {{row.edadEmpleado}}</td>
+            </ng-container>
 
-        <!-- Name Column -->
-        <ng-container matColumnDef="fechaContratacionEmplado">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha contratación </th>
-            <td mat-cell *matCellDef="let row"> {{row.fechaContratacionEmplado}} </td>
-        </ng-container>
+            <!-- Name Column -->
+            <ng-container matColumnDef="fechaContratacionEmplado">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha contratación </th>
+                <td mat-cell *matCellDef="let row"> {{row.fechaContratacionEmplado}} </td>
+            </ng-container>
 
-        <!-- Color Column -->
-        <ng-container matColumnDef="idEmpleado">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
-            <td mat-cell *matCellDef="let row" [style.color]="row.idEmpleado">
-                <div class="example-button-row">
+            <!-- Color Column -->
+            <ng-container matColumnDef="idEmpleado">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Acciones </th>
+                <td mat-cell *matCellDef="let row" [style.color]="row.idEmpleado">
                     <div class="example-flex-container">
-                        <button [routerLink]="['/editarEmpleado/', row.idEmpleado]" mat-icon-button aria-label="Example icon button with a open in new tab icon">
+                        <button [routerLink]="['/editarEmpleado/', row.idEmpleado]" mat-icon-button
+                            aria-label="Example icon button with a open in new tab icon">
                             <mat-icon>open_in_new</mat-icon>
                         </button>
-                        <button [routerLink]="['/detalleEmpleado/', row.idEmpleado]" mat-icon-button color="accent" aria-label="Example icon button with a menu icon">
+                        <button [routerLink]="['/detalleEmpleado/', row.idEmpleado]" mat-icon-button color="primary"
+                            aria-label="Example icon button with a menu icon">
                             <mat-icon>visibility</mat-icon>
                         </button>
-                        <button (click)="deleteEmpleado(row.idEmpleado)" mat-icon-button color="warn" aria-label="Example icon button with a heart icon">
+                        <button (click)="deleteEmpleado(row.idEmpleado)" mat-icon-button color="warn"
+                            aria-label="Example icon button with a heart icon">
                             <mat-icon>delete</mat-icon>
                         </button>
 
                     </div>
-                </div>
-            </td>
-        </ng-container>
+                </td>
+            </ng-container>
 
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
-        <!-- Row shown when there is no matching data. -->
-        <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
-        </tr>
-    </table>
+            <!-- Row shown when there is no matching data. -->
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+            </tr>
+        </table>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+    </div>
+
 </div>

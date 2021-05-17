@@ -5,21 +5,23 @@ import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-
+import { MatDialog } from "@angular/material/dialog";
+import { AlertComfirmacionComponent } from "../alert-comfirmacion/alert-comfirmacion.component";
 @Component({
   selector: 'app-list-empleados',
   templateUrl: './list-empleados.component.html',
   styleUrls: ['./list-empleados.component.css']
 })
 export class ListEmpleadosComponent implements OnInit, AfterViewInit {
-  displayedColumns: string[] = ['nombreEmpleado','edadEmpleadp', 'fechaContratacionEmplado','idEmpleado'];
+  displayedColumns: string[] = ['nombreEmpleado','cargoEmpleado','edadEmpleado', 'fechaContratacionEmplado','idEmpleado'];
   dataSource = new MatTableDataSource();
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
   constructor(private empleadosService: EmpleadosService,
-     private toastr: ToastrService
+     private toastr: ToastrService,
+     public dialogo: MatDialog
   ) {
   }
 
@@ -41,16 +43,24 @@ export class ListEmpleadosComponent implements OnInit, AfterViewInit {
   }
   deleteEmpleado(idEmpleado: any) {
     if (idEmpleado !== undefined) {
-      if (confirm('¿Estas seguro de borrar esta Empleado?')) {
-        this.empleadosService.deleteEmpleado(idEmpleado).then(() => {
-          console.log('empelado eliminado con exito');
-          this.toastr.error('El empleado fue eliminado con exito', 'Registro eliminado!', {
-            positionClass: 'toast-bottom-right'
-          });
-        }).catch(error => {
-          console.log(error);
-        })
-      }
+        this.dialogo
+          .open(AlertComfirmacionComponent, {
+            data: `¿Estas seguro de eliminar este Empleado?`
+          })
+          .afterClosed()
+          .subscribe((confirmado: Boolean) => {
+            if (confirmado) {
+              this.empleadosService.deleteEmpleado(idEmpleado).then(() => {
+                console.log('empelado eliminado con exito');
+                this.toastr.error('El empleado fue eliminado con exito', 'Registro eliminado!', {
+                  positionClass: 'toast-bottom-right'
+                });
+              }).catch(error => {
+                console.log(error);
+              });
+            } else {
+            }
+      });
     }
   }
   applyFilter(event: Event) {

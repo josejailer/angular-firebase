@@ -11,8 +11,8 @@ export class CargosService {
 
   constructor(private afs: AngularFirestore) { }
   
-  public getCargos() :Observable<ICargos[]>{
-		return this.afs.collection<ICargos>(COLLECTIONS.CARGOS).snapshotChanges()
+  public getCargos(area:string) :Observable<ICargos[]>{
+		return this.afs.collection<ICargos>(COLLECTIONS.CARGOS+area).snapshotChanges()
 			.pipe(map(changes => {
 				return changes.map(action => {
 					const data = action.payload.doc.data() as ICargos;

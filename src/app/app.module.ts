@@ -13,12 +13,14 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { environment } from '../environments/environment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { AlertComfirmacionComponent } from './components/alert-comfirmacion/alert-comfirmacion.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ListEmpleadosComponent,
-    AddEditEmpleadosComponent
+    AddEditEmpleadosComponent,
+    AlertComfirmacionComponent
   ],
   imports: [
     BrowserModule,
