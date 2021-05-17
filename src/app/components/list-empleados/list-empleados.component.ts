@@ -21,7 +21,6 @@ export class ListEmpleadosComponent implements OnInit, AfterViewInit {
   constructor(private empleadosService: EmpleadosService,
      private toastr: ToastrService
   ) {
-
   }
 
   ngOnInit(): void {
